@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS m_player;
 CREATE TABLE m_player (
-    player_no INT NOT NULL PRIMARY KEY COMMENT '選手番号',
+    player_no BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '選手番号',
     player_name VARCHAR(20) NOT NULL COMMENT '選手名',
     team_id VARCHAR(2) COMMENT 'チームID',
     player_height INT NOT NULL COMMENT '身長',
