@@ -9,6 +9,7 @@
   </resultMap>
   <select id="selectAll" resultMap="m_player">
     SELECT
+        m_player.player_no,
         m_player.player_name,
         m_team.team_name,
         m_player.player_height,

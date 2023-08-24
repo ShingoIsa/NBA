@@ -12,3 +12,16 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+# 自分で名前決めれる
+logging.file.name: "app.log"
+
+logging:
+  level:
+    root: INFO
+
+  logback:
+    rollingpolicy:
+      max-file-size: 1MB
+
+
+
