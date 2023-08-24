@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import jp.co.ambitious.sample.nba.beans.Player;
 import jp.co.ambitious.sample.nba.services.NbaService;
+import lombok.extern.slf4j.Slf4j;
 
 // 画面のtable表に値を表示できるか試作品作成中
 @Controller
+@Slf4j
 public class NbaController {
 
     @Autowired
@@ -24,6 +26,7 @@ public class NbaController {
         List<Player> players = new ArrayList<>();
         players = service.getPlayer();
         model.addAttribute("players", players);
+        log.info("players: " + players);
         return "nba_list";
     }
 
