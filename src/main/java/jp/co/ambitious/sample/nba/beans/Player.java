@@ -21,7 +21,7 @@ public class Player {
     private String playerName;
 
     // チームID
-    private Team teamId;
+    private Team team;
 
     // 身長
     private Integer playerHeight;

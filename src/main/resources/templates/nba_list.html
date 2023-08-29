@@ -31,54 +31,64 @@
         </div>
     </nav>
     <div class="container">
-        <form>
-            <div class="row justify-content-between">
+        <form method="get" th:action="@{/nba}">
+            <div class="row justify-content-between mb-4">
                 <div class="col col-4">
-                    <label for="player-name" class="form-label">選手名</label>
-                    <input type="text" class="form-control" id="player-name" placeholder="name@example.com">
+                    <label for="player-name" class="form-label">選手名キーワード</label>
+                    <input type="text" class="form-control" th:field="${searchForm.keyword}" id="player-name" placeholder="選手名もしくは選手名の一部を入力してください">
                 </div>
                 <div class="col col-4">
                     <label for="team-name" class="form-label">チーム名</label>
-                    <input type="text" class="form-control" id="team-name" placeholder="name@example.com">
+                    <select class="form-select" th:field="${searchForm.teamId}" id="team-name" placeholder="チームを選んでね" aria-label="Default select example">
+                        <option value=""></option>
+                        <option th:each="team : ${teams}" th:text="${team.teamName}" th:value="${team.teamId}"></option>
+                    </select>
                 </div>
             </div>
-            <div class="row mt-3">
-                <div class="col">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">1</th>
-                            <th scope="col">2</th>
-                            <th scope="col">3</th>
-                            <th scope="col">4</th>
-                            <th scope="col">5</th>
-                            <th scope="col">6</th>
-                            <th scope="col">7</th>
-                            <th scope="col">8</th>
-                            <th scope="col">9</th>
-                            <th scope="col">10</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="player: ${players}" th:object="${player}">
-                            <th scope="row" th:text="*{playerNo}"></th>
-                            <td th:text="*{playerName}"></td>
-                            <td th:text="*{teamId.teamName}"></td>
-                            <td th:text="*{playerHeight}"></td>
-                            <td th:text="*{playerAge}"></td>
-                            <td th:text="*{playerPosition}"></td>
-                            <td th:text="*{playerScore}"></td>
-                            <td th:text="*{playerAsist}"></td>
-                            <td th:text="*{playerRebound}"></td>
-                            <td th:text="*{insDt}"></td>
-                            <td th:text="*{upDt}"></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col d-flex flex-row-reverse bd-highlight">
+                    <button type="button" class="btn btn-danger ms-2">登録</button>
+                    <a th:href="@{/nba/reset}" class="btn btn-warning ms-2">リセット</a>
+                    <button type="submit" class="btn btn-info">検索する</butt>
                 </div>
             </div>
         </form>
+        <div class="row mt-3">
+            <div class="col">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">1</th>
+                        <th scope="col">2</th>
+                        <th scope="col">3</th>
+                        <th scope="col">4</th>
+                        <th scope="col">5</th>
+                        <th scope="col">6</th>
+                        <th scope="col">7</th>
+                        <th scope="col">8</th>
+                        <th scope="col">9</th>
+                        <th scope="col">10</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="player: ${players}" th:object="${player}">
+                        <th scope="row" th:text="*{playerNo}"></th>
+                        <td th:text="*{playerName}"></td>
+                        <td th:text="*{team.teamName}"></td>
+                        <td th:text="*{playerHeight}"></td>
+                        <td th:text="*{playerAge}"></td>
+                        <td th:text="*{playerPosition}"></td>
+                        <td th:text="*{playerScore}"></td>
+                        <td th:text="*{playerAsist}"></td>
+                        <td th:text="*{playerRebound}"></td>
+                        <td th:text="*{insDt}"></td>
+                        <td th:text="*{upDt}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>

@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.ambitious.sample.nba.beans.Player;
+import jp.co.ambitious.sample.nba.beans.Team;
+import jp.co.ambitious.sample.nba.forms.SearchForm;
 import jp.co.ambitious.sample.nba.mappers.PlayerMapper;
+import jp.co.ambitious.sample.nba.mappers.TeamMapper;
 
 @Service
 public class NbaService {
@@ -14,7 +17,16 @@ public class NbaService {
     @Autowired
     PlayerMapper playerMapper;
 
-    public List<Player> getPlayer() {
-        return playerMapper.selectAll();
+    @Autowired
+    TeamMapper teamMapper;
+
+    // テーブルに選手情報を表示
+    public List<Player> getPlayer(SearchForm searchForm) {
+        return playerMapper.selectAll(searchForm);
+    }
+
+    // ドロップボックスにチーム名をセット
+    public List<Team> getTeam() {
+        return teamMapper.getTeam();
     }
 }

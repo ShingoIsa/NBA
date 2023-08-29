@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import jp.co.ambitious.sample.nba.beans.Player;
+import jp.co.ambitious.sample.nba.beans.Team;
+import jp.co.ambitious.sample.nba.forms.SearchForm;
 import jp.co.ambitious.sample.nba.services.NbaService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,16 +22,44 @@ public class NbaController {
     @Autowired
     NbaService service;
 
+    /**
+     * 最初の画面
+     * @param model
+     * @return nba_list
+     */
     @GetMapping("/nba")
-    public String nba(Model model) {
+    public String nba(SearchForm searchForm, Model model) {
 
+        //チーム名をドロップダウンにセット,コントローラに問題があるのではないか
+        this.setTeam(model);
+        log.info("searchform :{}" + searchForm);
+
+        // 選手名のみの検索だとフィルタリングをかけることができない。なぜ？
         List<Player> players = new ArrayList<>();
-        players = service.getPlayer();
+        players = service.getPlayer(searchForm);
         model.addAttribute("players", players);
-        log.info("players: " + players);
+        
         return "nba_list";
     }
 
+    /**
+     * 検索条件リセットボタン用
+     * @return nba_list
+     */
+    @GetMapping("/nba/reset")
+    public String reset(SearchForm searchForm, Model model) {
+        this.setTeam(model);
+        searchForm = new SearchForm();
+        return "nba_list";
+    }
+    
+    /** チーム名をドロップダウンにセット */
+    private void setTeam(Model model) {
+
+        List<Team> teams = new ArrayList<>();
+        teams = service.getTeam();
+        model.addAttribute("teams", teams);
+    }
     
 
 }

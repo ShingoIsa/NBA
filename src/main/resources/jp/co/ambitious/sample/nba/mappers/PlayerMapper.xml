@@ -4,24 +4,36 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.ambitious.sample.nba.mappers.PlayerMapper">
   <resultMap id="m_player" type="jp.co.ambitious.sample.nba.beans.Player" autoMapping="true">
-    <association property="teamId" javaType="jp.co.ambitious.sample.nba.beans.Team" autoMapping="true">
+    <association property="team" javaType="jp.co.ambitious.sample.nba.beans.Team" autoMapping="true">
     </association>
   </resultMap>
   <select id="selectAll" resultMap="m_player">
-    SELECT
-        m_player.player_no,
-        m_player.player_name,
-        m_team.team_name,
-        m_player.player_height,
-        m_player.player_age,
-        m_player.player_position,
-        m_player.player_score,
-        m_player.player_asist,
-        m_player.player_rebound,
-        m_player.version,
-        m_player.ins_dt,
-        m_player.up_dt
-    FROM m_player LEFT OUTER JOIN m_team
-    ON m_player.team_id = m_team.team_id;
+      SELECT
+          m_player.player_no,
+          m_player.player_name,
+          m_player.team_id,
+          m_team.team_name,
+          m_player.player_height,
+          m_player.player_age,
+          m_player.player_position,
+          m_player.player_score,
+          m_player.player_asist,
+          m_player.player_rebound,
+          m_player.version,
+          m_player.ins_dt,
+          m_player.up_dt
+      FROM
+        m_player LEFT OUTER JOIN m_team
+          ON m_player.team_id = m_team.team_id
+    <where>
+      <if test="keyword != null">
+        m_player.player_name LIKE CONCAT('%', #{keyword}, '%')
+      </if>
+      <if test="teamId != null">
+        AND m_player.team_id = #{teamId}
+      </if>
+    </where>
+      ORDER BY
+        m_player.player_no;
   </select>
 </mapper>
