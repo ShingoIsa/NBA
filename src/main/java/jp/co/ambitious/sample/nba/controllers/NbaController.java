@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import jp.co.ambitious.sample.nba.beans.Player;
@@ -28,13 +30,17 @@ public class NbaController {
      * @return nba_list
      */
     @GetMapping("/nba")
-    public String nba(SearchForm searchForm, Model model) {
+    public String nba(@Validated SearchForm searchForm, BindingResult bindingResult, Model model) {
 
-        //チーム名をドロップダウンにセット,コントローラに問題があるのではないか
+        if (bindingResult.hasErrors()) {
+            // 入力チェックでエラーがある場合
+            return "nba_list";
+        }
+
+        //チーム名をドロップダウンにセット
         this.setTeam(model);
-        log.info("searchform :{}" + searchForm);
 
-        // 選手名のみの検索だとフィルタリングをかけることができない。なぜ？
+        // 選手名をセット
         List<Player> players = new ArrayList<>();
         players = service.getPlayer(searchForm);
         model.addAttribute("players", players);
@@ -60,6 +66,4 @@ public class NbaController {
         teams = service.getTeam();
         model.addAttribute("teams", teams);
     }
-    
-
 }

@@ -3,10 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.ambitious.sample.nba.mappers.PlayerMapper">
+  
   <resultMap id="m_player" type="jp.co.ambitious.sample.nba.beans.Player" autoMapping="true">
     <association property="team" javaType="jp.co.ambitious.sample.nba.beans.Team" autoMapping="true">
     </association>
   </resultMap>
+
   <select id="selectAll" resultMap="m_player">
       SELECT
           m_player.player_no,

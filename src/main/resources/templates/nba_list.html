@@ -21,24 +21,25 @@
         }
     </style>
 
-    <title>Hello, world!</title>
+    <title th:text="#{site.title}"></title>
   </head>
   <body>
     <nav class="navbar navbar-dark bg-primary mb-2">
         <div class="container-fluid">
-            <span class="navbar-brand h1">NBA</span>
-            <span>ログアウト</span>
+            <span class="navbar-brand h1" th:text="#{page.title}"></span>
+            <span th:text="#{page.logout}"></span>
         </div>
     </nav>
     <div class="container">
         <form method="get" th:action="@{/nba}">
             <div class="row justify-content-between mb-4">
                 <div class="col col-4">
-                    <label for="player-name" class="form-label">選手名キーワード</label>
+                    <label for="player-name" class="form-label" th:text="#{searchForm.keyword}"></label>
                     <input type="text" class="form-control" th:field="${searchForm.keyword}" id="player-name" placeholder="選手名もしくは選手名の一部を入力してください">
+                    <div th:errors="${searchForm.keyword}" class="text-danger"></div>
                 </div>
                 <div class="col col-4">
-                    <label for="team-name" class="form-label">チーム名</label>
+                    <label for="team-name" class="form-label" th:text="#{searchForm.teamName}"></label>
                     <select class="form-select" th:field="${searchForm.teamId}" id="team-name" placeholder="チームを選んでね" aria-label="Default select example">
                         <option value=""></option>
                         <option th:each="team : ${teams}" th:text="${team.teamName}" th:value="${team.teamId}"></option>
@@ -47,9 +48,9 @@
             </div>
             <div class="row">
                 <div class="col d-flex flex-row-reverse bd-highlight">
-                    <button type="button" class="btn btn-danger ms-2">登録</button>
-                    <a th:href="@{/nba/reset}" class="btn btn-warning ms-2">リセット</a>
-                    <button type="submit" class="btn btn-info">検索する</butt>
+                    <button type="button" class="btn btn-danger ms-2" th:text="#{searchForm.registration}"></button>
+                    <a th:href="@{/nba/reset}" class="btn btn-warning ms-2" th:text="#{searchForm.riset}"></a>
+                    <button type="submit" class="btn btn-info" th:text="#{searchForm.search}"></butt>
                 </div>
             </div>
         </form>
