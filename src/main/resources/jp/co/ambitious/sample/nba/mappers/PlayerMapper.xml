@@ -38,4 +38,26 @@
       ORDER BY
         m_player.player_no;
   </select>
+
+  <select id="selectByPK" resultMap="m_player">
+    SELECT
+      m_player.player_no
+      , m_player.player_name
+      , m_player.team_id
+      , m_team.team_name
+      , m_player.player_height
+      , m_player.player_age
+      , m_player.player_position
+      , m_player.player_score
+      , m_player.player_asist
+      , m_player.player_rebound
+      , m_player.version
+    FROM
+      m_player 
+      LEFT OUTER JOIN m_team 
+          ON m_player.team_id = m_team.team_id
+    <where>
+      player_no = #{playerNo}
+    </where>
+  </select>
 </mapper>
