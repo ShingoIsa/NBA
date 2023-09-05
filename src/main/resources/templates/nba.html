@@ -1,0 +1,93 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- google フォント①-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&family=Oswald&display=swap" rel="stylesheet">
+
+    <!-- google フォント②-->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-family: 'Oswald', sans-serif;
+        }
+    </style>
+
+    <title th:text="#{site.title}"></title>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-primary mb-2">
+        <div class="container-fluid">
+            <h1 class="fs-1" th:text="#{registration.title}"></h1>
+        </div>
+    </nav>
+    <div class="container">
+      <div class="row mb-3">
+        <div class="col">
+          <h1 class="display-6">下記に選手の変更情報を入力して<font color="#6666CC">登録</font>をクリック</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <form method="post" th:object="${nbaForm}" th:action="@{/nba/save}">
+            <div class="mb-3">
+              <div class="alert alert-danger" role="alert" th:each="err : ${#fields.errors('global')}" th:text="${err}"></div>
+            </div>
+            <div class="mb-3">
+              <span>選手ID　</span>
+              <span th:text="*{playerNo}"></span>
+              <input  type="hidden" th:field="*{playerNo}">
+              <input  type="hidden" th:field="*{version}">
+            </div>
+            <div class="mb-3">
+              <label for="player_name" class="form-label">選手名</label>
+              <input type="text" id="player_name" class="form-control" th:field="*{playerName}">
+            </div>
+            <div class="mb-3">
+              <label for="team_name" class="form-label">チーム名</label>
+              <select id="team_name" class="form-select" th:field="*{team.teamId}">
+                <option th:each="team: ${teams}" th:text="${team.teamName}" th:value="${team.teamId}"></option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="height" class="form-label">身長</label>
+              <input type="text" th:field="*{playerHeight}" id="height" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label for="年齢" class="form-label">年齢</label>
+              <input type="text" th:field="*{playerAge}" id="年齢" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label for="player_roll" class="form-label">ポジション</label>
+              <input type="text" th:field="*{playerPosition}" id="player_roll" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label for="average_point" class="form-label">平均得点</label>
+              <input type="text" th:field="*{playerScore}" id="average_point" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label for="average_assist" class="form-label">平均アシスト数</label>
+              <input type="text" th:field="*{playerAsist}" id="average_assist" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label for="average_rebound" class="form-label">平均リバウンド数</label>
+              <input type="text" th:field="*{playerRebound}" id="average_rebound" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>

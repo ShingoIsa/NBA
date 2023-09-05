@@ -48,7 +48,7 @@
             </div>
             <div class="row">
                 <div class="col d-flex flex-row-reverse bd-highlight">
-                    <button type="button" class="btn btn-danger ms-2" th:text="#{searchForm.registration}"></button>
+                    <a th:href="@{/nba/new}" class="btn btn-danger ms-2" th:text="#{searchForm.registration}"></a>
                     <a th:href="@{/nba/reset}" class="btn btn-warning ms-2" th:text="#{searchForm.riset}"></a>
                     <button type="submit" class="btn btn-info" th:text="#{searchForm.search}"></butt>
                 </div>
@@ -60,22 +60,22 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">1</th>
-                        <th scope="col">2</th>
-                        <th scope="col">3</th>
-                        <th scope="col">4</th>
-                        <th scope="col">5</th>
-                        <th scope="col">6</th>
-                        <th scope="col">7</th>
-                        <th scope="col">8</th>
-                        <th scope="col">9</th>
-                        <th scope="col">10</th>
+                        <th scope="col" th:text="#{table.head1}"></th>
+                        <th scope="col" th:text="#{table.head2}"></th>
+                        <th scope="col" th:text="#{table.head3}"></th>
+                        <th scope="col" th:text="#{table.head4}"></th>
+                        <th scope="col" th:text="#{table.head5}"></th>
+                        <th scope="col" th:text="#{table.head6}"></th>
+                        <th scope="col" th:text="#{table.head7}"></th>
+                        <th scope="col" th:text="#{table.head8}"></th>
+                        <th scope="col" th:text="#{table.head9}"></th>
+                        <th scope="col" th:text="#{table.head10}"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="player: ${players}" th:object="${player}">
                         <th scope="row" th:text="*{playerNo}"></th>
-                        <td th:text="*{playerName}"></td>
+                        <td><a th:href="@{/nba/} + *{playerNo}" th:text="*{playerName}"></a></td>
                         <td th:text="*{team.teamName}"></td>
                         <td th:text="*{playerHeight}"></td>
                         <td th:text="*{playerAge}"></td>
