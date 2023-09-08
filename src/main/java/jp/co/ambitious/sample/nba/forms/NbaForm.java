@@ -1,5 +1,7 @@
 package jp.co.ambitious.sample.nba.forms;
 
+import javax.validation.Valid;
+
 import jp.co.ambitious.sample.nba.beans.Team;
 import lombok.Data;
 
@@ -13,6 +15,7 @@ public class NbaForm {
     private String playerName;
 
     // チームID
+    @Valid
     private Team team;
 
     // 身長

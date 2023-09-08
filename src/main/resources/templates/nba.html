@@ -25,25 +25,25 @@
   </head>
   <body>
     <nav class="navbar navbar-dark bg-primary mb-2">
-        <div class="container-fluid">
-            <h1 class="fs-1" th:text="#{registration.title}"></h1>
+        <div class="container-fluid" >
+            <h1 class="fs-1" th:text="#{update.title}" th:if="${nbaForm.playerNo}"></h1>
+            <h1 class="fs-1" th:text="#{registration.title}" th:unless="${nbaForm.playerNo}"></h1>
         </div>
     </nav>
     <div class="container">
-      <div class="row mb-3">
+      <div class="row">
         <div class="col">
-          <h1 class="display-6">下記に選手の変更情報を入力して<font color="#6666CC">登録</font>をクリック</h1>
+            <h1 class="display-6">下記に選手の変更情報を入力して<font color="#6666CC">登録</font>をクリック</h1>
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col ">
           <form method="post" th:object="${nbaForm}" th:action="@{/nba/save}">
             <div class="mb-3">
               <div class="alert alert-danger" role="alert" th:each="err : ${#fields.errors('global')}" th:text="${err}"></div>
             </div>
-            <div class="mb-3">
-              <span>選手ID　</span>
-              <span th:text="*{playerNo}"></span>
+            <div class="mb-3" th:if="${nbaForm.playerNo}">
+              <span th:text="'選手ID' + '　' + *{playerNo}"></span>
               <input  type="hidden" th:field="*{playerNo}">
               <input  type="hidden" th:field="*{version}">
             </div>
@@ -54,6 +54,7 @@
             <div class="mb-3">
               <label for="team_name" class="form-label">チーム名</label>
               <select id="team_name" class="form-select" th:field="*{team.teamId}">
+                <option value=""></option>
                 <option th:each="team: ${teams}" th:text="${team.teamName}" th:value="${team.teamId}"></option>
               </select>
             </div>
@@ -81,8 +82,8 @@
               <label for="average_rebound" class="form-label">平均リバウンド数</label>
               <input type="text" th:field="*{playerRebound}" id="average_rebound" class="form-control">
             </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" th:formaction="@{/nba/save}" >保存</button>
+            <button type="submit" class="btn btn-primary" th:formaction="@{/nba/delete}" th:if="${nbaForm.playerNo}">削除</button>
           </form>
         </div>
       </div>
