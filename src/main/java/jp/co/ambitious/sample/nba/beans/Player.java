@@ -2,6 +2,10 @@ package jp.co.ambitious.sample.nba.beans;
 
 import java.time.LocalDateTime;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,18 +22,22 @@ public class Player {
     private Integer playerNo;
 
     // 選手名
+    @NotBlank
     private String playerName;
 
     // チームID
+    @Valid
     private Team team;
 
     // 身長
+    @NotNull
     private Integer playerHeight;
 
     // 年齢
     private Integer playerAge;
 
     // ポジション
+    @NotBlank
     private String playerPosition;
 
     // 得点数

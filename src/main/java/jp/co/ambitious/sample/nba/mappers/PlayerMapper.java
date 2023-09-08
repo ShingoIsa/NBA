@@ -2,6 +2,7 @@ package jp.co.ambitious.sample.nba.mappers;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
 
@@ -31,5 +32,15 @@ public interface PlayerMapper {
      */
     @Update("UPDATE m_player SET player_name = #{playerName}, team_id = #{team.teamId}, player_height = #{playerHeight}, player_age = #{playerAge}, player_position = #{playerPosition}, player_score = #{playerScore}, player_asist = #{playerAsist}, player_rebound = #{playerRebound}, version = 1 + version, up_dt = now() WHERE player_no = #{playerNo} AND version= #{version}")
     public int updateByPK(Player player);
+
+    /**
+     * 新規登録メソッド
+     * @param player
+     * @return
+     */
+    public int initNew(Player player);
+
+    @Delete("DELETE FROM m_player WHERE player_no = #{playerNo} AND version = #{version}")
+    public int delete(Player player);
 
 }

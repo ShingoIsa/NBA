@@ -60,4 +60,33 @@
       player_no = #{playerNo}
     </where>
   </select>
+
+  <insert id="initNew" parameterType="jp.co.ambitious.sample.nba.beans.Player">
+    INSERT 
+    INTO m_player 
+    ( 
+        player_name
+        , team_id
+        , player_height
+        , player_age
+        , player_position
+        , player_score
+        , player_asist
+        , player_rebound
+        , version
+        , ins_dt
+    ) 
+    VALUES ( 
+        #{playerName}
+        ,#{team.teamId}
+        ,#{playerHeight}
+        ,#{playerAge}
+        ,#{playerPosition}
+        ,#{playerScore}
+        ,#{playerAsist}
+        ,#{playerRebound}
+        ,1
+        ,NOW()
+    );
+  </insert>
 </mapper>

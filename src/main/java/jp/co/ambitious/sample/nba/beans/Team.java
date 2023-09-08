@@ -1,5 +1,7 @@
 package jp.co.ambitious.sample.nba.beans;
 
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class Team {
     
     // チームID
+    @NotNull
     private String teamId;
 
     // チーム名
